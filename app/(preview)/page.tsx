@@ -7,6 +7,7 @@ import { Code } from "@/components/code";
 import { useWindowSize } from "react-use";
 import { Overview } from "@/components/overview";
 import { z } from "zod";
+import { DeployFooter } from "@/components/deploy-footer";
 
 export default function Home() {
   const [prompt, setPrompt] = useState<string>("");
@@ -93,6 +94,8 @@ export default function Home() {
               </button>
             </div>
           </form>
+
+          <DeployFooter />
         </div>
 
         <div className="flex flex-col gap-2 overflow-y-scroll overflow-x-scroll w-100dvw md:w-[calc(50dvw)] p-4 border-t md:border-l md:border-t-0 h-dvh dark:border-zinc-700 dark:text-zinc-300">
