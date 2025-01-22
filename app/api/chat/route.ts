@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   const strippedText = $("body").text().trim();
   const cleanText = strippedText.replace(/\s+/g, " ");
 
-  const result = await streamObject({
+  const result = streamObject({
     model: openai("gpt-4-turbo"),
     system: `\
       - for the following webpage, generate a JSON schema based on the user prompt
