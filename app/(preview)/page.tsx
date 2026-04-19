@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { useObject } from "@ai-sdk/react";
+import { experimental_useObject as useObject } from "@ai-sdk/react";
 import { Code } from "@/components/code";
 import { useWindowSize } from "react-use";
 import { Overview } from "@/components/overview";
