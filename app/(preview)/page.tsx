@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { experimental_useObject } from "ai/react";
+import { experimental_useObject as useObject } from "@ai-sdk/react";
 import { Code } from "@/components/code";
 import { useWindowSize } from "react-use";
 import { Overview } from "@/components/overview";
@@ -16,7 +16,7 @@ export default function Home() {
   const [isOverviewVisible, setIsOverviewVisible] = useState<boolean>(true);
   const { width } = useWindowSize();
 
-  const { submit, isLoading, object } = experimental_useObject({
+  const { submit, isLoading, object } = useObject({
     api: "/api/chat",
     schema: z.unknown(),
     onFinish({ object }) {

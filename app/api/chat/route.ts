@@ -1,8 +1,18 @@
+import { createGateway } from "@ai-sdk/gateway";
 import { streamObject } from "ai";
-import { openai } from "@ai-sdk/openai";
+import { checkBotId } from "botid/server";
 import * as cheerio from "cheerio";
 
+const gateway = createGateway({
+  baseURL: "https://ai-gateway.vercel.sh/v1/ai",
+});
+
 export async function POST(req: Request) {
+  const { isBot } = await checkBotId();
+  if (isBot) {
+    return new Response("Access denied", { status: 403 });
+  }
+
   const { prompt, source }: { prompt: string; source: string } =
     await req.json();
 
@@ -20,7 +30,7 @@ export async function POST(req: Request) {
   const cleanText = strippedText.replace(/\s+/g, " ");
 
   const result = await streamObject({
-    model: openai("gpt-4-turbo"),
+    model: gateway("openai/gpt-4o"),
     system: `\
       - for the following webpage, generate a JSON schema based on the user prompt
       - use camelCase for keys
