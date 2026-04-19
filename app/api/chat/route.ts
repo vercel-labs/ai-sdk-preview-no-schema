@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   }
 
   const openai = createOpenAI({
-    baseURL: "https://ai-gateway.vercel.sh/v1",
+    baseURL: "https://ai-gateway.vercel.sh/v1/ai",
     apiKey: await getVercelOidcToken(),
   });
 
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
   const cleanText = strippedText.replace(/\s+/g, " ");
 
   const result = await streamObject({
-    model: openai("gpt-4o"),
+    model: openai("openai/gpt-4o"),
     system: `\
       - for the following webpage, generate a JSON schema based on the user prompt
       - use camelCase for keys
