@@ -1,8 +1,20 @@
+import { createOpenAI } from "@ai-sdk/openai";
+import { getVercelOidcToken } from "@vercel/functions/oidc";
 import { streamObject } from "ai";
-import { openai } from "@ai-sdk/openai";
+import { checkBotId } from "botid/server";
 import * as cheerio from "cheerio";
 
 export async function POST(req: Request) {
+  const { isBot } = await checkBotId();
+  if (isBot) {
+    return new Response("Access denied", { status: 403 });
+  }
+
+  const openai = createOpenAI({
+    baseURL: "https://ai-gateway.vercel.sh/v1",
+    apiKey: await getVercelOidcToken(),
+  });
+
   const { prompt, source }: { prompt: string; source: string } =
     await req.json();
 
